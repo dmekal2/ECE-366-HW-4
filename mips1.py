@@ -58,8 +58,9 @@ def main():
         elif(line[0:1] == "j"): # JUMP
             line = line.replace("j","")
             line = line.split(",")
-
+        
         elif(line[0:5] == "multu"): #MULTU
+            import pdb; pdb.set_trace()
             line = line.replace("multu","")
             line = line.split(",")
             rt = format(int(line[1]),'05b')

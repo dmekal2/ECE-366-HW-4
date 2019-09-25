@@ -8,3 +8,4 @@ TEST: addi $2,$5,-1
 j L1
 addiu $1, $0, -5
 multu $5, $1
+mult $5, $1
