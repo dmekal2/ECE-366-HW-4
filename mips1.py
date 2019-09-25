@@ -30,8 +30,16 @@ def main():
         line = line.replace("$","")
         line = line.replace(" ","")
         line = line.replace("zero","0") # assembly can also use both $zero and $0
+        
+        if(line[0:5] == "addiu"): #ADDIU
+            line = line.replace("addiu","")
+            line = line.split(",")
+            imm = format(int(line[2]),'016b') if (int(line[2]) > 0) else format(65536 + int(line[2]),'016b')
+            rs = format(int(line[1]), '05b')
+            rt = format(int(line[0]),'05b')
+            f.write(str('001001') + str(rs) + str(rt) + str(imm) + '\n')
 
-        if(line[0:4] == "addi"): # ADDI
+        elif(line[0:4] == "addi"): # ADDI
             line = line.replace("addi","")
             line = line.split(",")
             imm = format(int(line[2]),'016b') if (int(line[2]) > 0) else format(65536 + int(line[2]),'016b')
@@ -51,13 +59,12 @@ def main():
             line = line.replace("j","")
             line = line.split(",")
 
-        elif(line[0:5] == "addiu"): #ADDIU
-            line = line.replace("addiu","")
+        elif(line[0:5] == "multu"): #MULTU
+            line = line.replace("multu","")
             line = line.split(",")
-            imm = format(int(line[2]),'016b') if (int(line[2]) > 0) else format(65536 + int(line[2]),'016b')
-            rs = format(int(line[1], '05b')
-#            rt = format(int(line[0]),'05b')
-            f.write(str('001001') + str(rs) + str(rt) + str(imm) + '\n')
+            rt = format(int(line[1]),'05b')
+            rs = format(int(line[0]),'05b')
+            f.write(str('000000') + str(rt) + str(rs) + str('0000000000011001') + '\n')
 
         elif(line[0:4] == "mult"): #MULT
             line = line.replace("mult","")
@@ -66,12 +73,6 @@ def main():
             rs = format(int(line[0]),'05b')
             f.write(str('000000') + str(rt) + str(rs) + str('0000000000011000') + '\n')
 
-        elif(line[0:5] == "multu"): #MULTU
-            line = line.replace("mult","")
-            line = line.split(",")
-            rt = format(int(line[1]),'05b')
-            rs = format(int(line[0]),'05b')
-            f.write(str('000000') + str(rt) + str(rs) + str('0000000000011001') + '\n')
 
         elif(line[0:3] == "srl"): #SRL
             line = line.replace("srl","")

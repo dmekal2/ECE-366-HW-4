@@ -6,3 +6,5 @@ add $7,$7,$8
 addi $3,$3,-2
 TEST: addi $2,$5,-1
 j L1
+addiu $1, $0, -5
+multu $5, $1
